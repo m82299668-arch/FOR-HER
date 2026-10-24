@@ -95,7 +95,7 @@
         <h1 id="question">Ты будешь моей девушкой? 🥰</h1>
         <div class="buttons">
             <button id="yesBtn" onclick="sayYes()">Да!</button>
-            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Нет</button>
+            <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton(); event.preventDefault();">Нет</button>
         </div>
     </div>
 
