@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для моей любимой ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffb3c6);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+        h1 {
+            color: #ff4d6d;
+            font-size: 26px;
+            margin-bottom: 30px;
+        }
+        .gif-container img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
+            position: relative;
+        }
+        button {
+            padding: 12px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        #yesBtn {
+            background-color: #38b000;
+            color: white;
+            box-shadow: 0 5px 15px rgba(56, 176, 0, 0.4);
+        }
+        #noBtn {
+            background-color: #ff4d6d;
+            color: white;
+            position: absolute;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            left: 210px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: #ff4d6d;
+            animation: floatUp 3s linear infinite;
+            opacity: 0;
+            z-index: 1;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div class="gif-container">
+            <img src="https://tenor.com" alt="Cute Cat">
+        </div>
+        <h1 id="question">Ты будешь моей девушкой? 🥰</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="sayYes()">Да!</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Нет</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="successCard">
+        <div class="gif-container">
+            <img src="https://tenor.com" alt="Happy Cats">
+        </div>
+        <h1>Ура-а-а! Я люблю тебя! ❤️</h1>
+        <p style="color: #666; font-size: 14px;">(И кнопка "Нет" тебе не помогла 😉)</p>
+    </div>
+
+    <audio id="loveMusic" loop>
+        <source src="https://soundhelix.com" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainCard = document.getElementById('mainCard');
+        const successCard = document.getElementById('successCard');
+        const music = document.getElementById('loveMusic');
+
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) + 20;
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) + 20;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function sayYes() {
+            mainCard.classList.add('hidden');
+            successCard.classList.remove('hidden');
+            
+            music.play().catch(e => console.log("Музыка заблокирована"));
+
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createHeart, i * 150);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
